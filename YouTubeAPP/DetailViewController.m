@@ -131,7 +131,7 @@
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
     DetailViewController *test = [[DetailViewController alloc] init];
-    [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:test animated:YES completion:nil];
+    //[[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:test animated:YES completion:nil];
     // DetailViewController *test = [[DetailViewController alloc] init];
     //[self presentViewController:test animated:YES completion:nil];
     [self minimizeMp:NO animated:YES];
