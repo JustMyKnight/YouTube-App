@@ -25,7 +25,6 @@
 
 @implementation SearchViewController
 
-
 - (void)viewDidLoad
 {
     [self convertButtonTitle:@"Cancel" toTitle:@"Отмена" inView:self.searchBar];
@@ -40,9 +39,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated
-{[self.tableView setContentOffset:CGPointZero animated:NO];
+{
+    [self.tableView setContentOffset:CGPointZero animated:NO];
 }
-
 
 - (void)convertButtonTitle:(NSString *)from toTitle:(NSString *)to inView:(UIView *)view
 {

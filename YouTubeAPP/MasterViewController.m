@@ -32,7 +32,6 @@ UITableViewDataSource>
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.DetailViewController = [[DetailViewController alloc] init];
     self.DetailNavigationController = [[UINavigationController alloc] initWithRootViewController:self.DetailViewController];
     self.videoTableView.delegate = self;
@@ -103,23 +102,20 @@ UITableViewDataSource>
     CustomVideoCell *cell = (CustomVideoCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
-	        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomVideoCell"owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomVideoCell"owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     YouTubeVideo *youTubeVideo = self.videoList[indexPath.row];
     [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
     [cell.title setText:youTubeVideo.title];
     [cell.PubledAt setText:youTubeVideo.published];
-    return cell;
-    
+    return cell;    
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
-    //[self presentViewController:self.DetailNavigationController animated:YES completion:nil];
     [[self navigationController] pushViewController:self.DetailViewController animated:YES];
-    NSLog(@"%@", [[self navigationController] viewControllers]);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

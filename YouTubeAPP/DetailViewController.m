@@ -21,21 +21,10 @@
 @property (weak, nonatomic) IBOutlet UIView *tallMpContainer;
 @property (weak, nonatomic) IBOutlet YTPlayerView *youTubePlayer;
 @property (weak, nonatomic) IBOutlet UITableView *videoTableView;
-@property (strong, nonatomic) IBOutlet UITabBar *TabBar;
 @property (weak, nonatomic) IBOutlet UITabBarItem *Main;
 @end
 
 @implementation DetailViewController
-
-- (void)TabBar:(UITabBar *)TabBar didSelectItem:(UITabBarItem *)item
-{
-    if(item.tag == 0)
-    {NSLog(@"0");
-    }
-    if(item.tag == 1)
-    {NSLog(@"1");
-    }
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -98,7 +87,6 @@
         self.tallMpContainer.frame = tallContainerFrame;
         tallContainerAlpha = 1.0;
         self.tallMpContainer.alpha = tallContainerAlpha;
-        self.TabBar.hidden = NO;
         }
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
     }
@@ -107,20 +95,18 @@
     {
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
-        self.TabBar.hidden = YES;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
     else if(orientation==UIInterfaceOrientationLandscapeRight)  //landscape Right
     {
-       
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
-        self.TabBar.hidden = YES;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
 }
 
-- (BOOL)mpIsMinimized {
+- (BOOL)mpIsMinimized
+{
     return self.youTubePlayer.frame.origin.y < 100;
 }
 
@@ -149,8 +135,6 @@
     self.youTubePlayer.frame = playerFrame;
     self.youTubePlayer.alpha= 0;
     }];
-    
-    
 }
 
 - (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated 
@@ -189,7 +173,8 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
@@ -200,14 +185,13 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
     CGFloat mpHeight = screenRect.size.height;
-    
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
     {
         NSLog(@"Height: %f",mpHeight);
         NSLog(@"Widht: %f",mpWidth);
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
-        self.TabBar.hidden = YES;
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
     else
     {
@@ -216,7 +200,6 @@
         self.tallMpContainer.alpha = 1.0;
         YouTubeVideoFrame = CGRectMake(0,70, mpWidth, 180);
         self.youTubePlayer.frame = YouTubeVideoFrame;
-        self.TabBar.hidden = NO;
     }
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=id%%2C+snippet%%2C+contentDetails%%2C+statistics&id=%@&key=AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA", self.selectedVideo.videoID];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -258,12 +241,9 @@
              [self.like setText:youTubeVideo.likesCount];
              [self.dislike setText:youTubeVideo.dislikesCount];
              [self.descript setText: youTubeVideo.Description];
-             
              NSMutableString *duration = [NSMutableString stringWithString:youTubeVideo.duration];
-             
              NSString *temp = [duration substringFromIndex:2];
              temp = [temp substringToIndex:[temp length] - 1];
-             
              duration = [NSMutableString stringWithString: temp];
              int i = 0;
              int length = [duration length];
@@ -294,7 +274,8 @@
 }
 
 - (IBAction)back
-{   self.youTubePlayer.hidden = YES;
+{
+    self.youTubePlayer.hidden = YES;
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 @end
