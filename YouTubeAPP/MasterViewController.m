@@ -103,11 +103,13 @@ UITableViewDataSource>
     [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
     [cell.title setText:youTubeVideo.title];
     [cell.PubledAt setText:youTubeVideo.published];
-    return cell;    
+    return cell;
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    self.DetailViewController = nil;
+    self.DetailViewController = [[DetailViewController alloc] init];
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
     [self.navigationController pushViewController:self.DetailViewController animated:YES];
 }

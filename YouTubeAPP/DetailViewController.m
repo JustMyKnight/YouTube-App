@@ -35,11 +35,11 @@
         UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Назад"
                                                                               style:UIBarButtonItemStyleDone
                                                                              target:self
-                                                                             action:@selector(back)];        
+                                                                             action:@selector(back)];
         [self.navigationItem setLeftBarButtonItem:leftBarButtonItem];
         
     }
-   
+    
     return self;
 }
 
@@ -80,12 +80,12 @@
         }
         else
         {
-        YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
-        self.youTubePlayer.frame = YouTubeVideoFrame;
-        tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
-        self.tallMpContainer.frame = tallContainerFrame;
-        tallContainerAlpha = 1.0;
-        self.tallMpContainer.alpha = tallContainerAlpha;
+            YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
+            self.youTubePlayer.frame = YouTubeVideoFrame;
+            tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
+            self.tallMpContainer.frame = tallContainerFrame;
+            tallContainerAlpha = 1.0;
+            self.tallMpContainer.alpha = tallContainerAlpha;
         }
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
         [self.tabBarController.tabBar setHidden:NO];
@@ -124,12 +124,14 @@
 
 - (void)swipeDown:(UIGestureRecognizer *)gr {
     NSLog(@"Before: %@", [[self navigationController] viewControllers]);
+    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.youTubePlayer];
+    
     self.SaveNavigationController=self.DetailNavigationController;
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self minimizeMp:YES animated:YES];
-     NSLog(@"After: %@", [[self navigationController] viewControllers]);
+    NSLog(@"After: %@", [[self navigationController] viewControllers]);
 }
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
@@ -145,16 +147,16 @@
     CGRect playerFrame = self.youTubePlayer.frame;
     playerFrame.origin.x = -self.youTubePlayer.frame.size.width;
     [UIView animateWithDuration:0.5 animations:^{
-    self.youTubePlayer.frame = playerFrame;
-    self.youTubePlayer.alpha= 0;
-    for (UIView *view in [self.youTubePlayer subviews])
-    {
-        [view removeFromSuperview];
-    }
+        self.youTubePlayer.frame = playerFrame;
+        self.youTubePlayer.alpha= 0;
+        for (UIView *view in [self.youTubePlayer subviews])
+        {
+            [view removeFromSuperview];
+        }
     }];
 }
 
-- (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated 
+- (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated
 {
     CGRect tallContainerFrame, YouTubeVideoFrame;
     CGFloat tallContainerAlpha;
@@ -162,30 +164,39 @@
     
     if (orientation==UIInterfaceOrientationPortrait)
     {
-    if (minimized)
+        if (minimized)
         {
-        CGFloat mpWidth = self.youTubePlayer.frame.size.width / 2;
-        CGFloat mpHeight = self.youTubePlayer.frame.size.height / 2;
-        CGFloat x = self.view.bounds.size.width-mpWidth;
-        CGFloat y = self.view.bounds.size.height-mpHeight;
-        tallContainerFrame = CGRectMake(x, y, 150, self.view.bounds.size.height);
-        YouTubeVideoFrame = CGRectMake(x, y-51, mpWidth, mpHeight);
-        tallContainerAlpha = 0.0;
-        [[self navigationController] setNavigationBarHidden:NO animated:YES];
+            CGFloat mpWidth = self.youTubePlayer.frame.size.width / 2;
+            CGFloat mpHeight = self.youTubePlayer.frame.size.height / 2;
+            CGFloat x = self.view.bounds.size.width-mpWidth;
+            CGFloat y = self.view.bounds.size.height-mpHeight;
+            tallContainerFrame = CGRectMake(x, y, 150, self.view.bounds.size.height);
+            YouTubeVideoFrame = CGRectMake(x, y-51, mpWidth, mpHeight);
+            tallContainerAlpha = 0.0;
+            [[self navigationController] setNavigationBarHidden:NO animated:YES];
         }
-    else
+        else
         {
-        tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
-        YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
-        tallContainerAlpha = 1.0;
+            __strong UIView* v = self.youTubePlayer;
+            [self.youTubePlayer removeFromSuperview];
+            [self.view addSubview:v];
+            NSLog(@"Self.navigation controller: %@", self.navigationController);
+            if (self.navigationController == nil) {
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [appDelegate.MasterNavigationController pushViewController:self animated:NO];
+            }
+            
+            tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
+            YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
+            tallContainerAlpha = 1.0;
         }
-    NSTimeInterval duration = (animated)? 0.5 : 0.0;
-    [UIView animateWithDuration:duration animations:^{
-    self.youTubePlayer.frame = YouTubeVideoFrame;
-    self.tallMpContainer.frame = tallContainerFrame;
-    self.tallMpContainer.alpha = tallContainerAlpha;
-    }];
-    if ([self mpIsMinimized] == minimized) return;
+        NSTimeInterval duration = (animated)? 0.5 : 0.0;
+        [UIView animateWithDuration:duration animations:^{
+            self.youTubePlayer.frame = YouTubeVideoFrame;
+            self.tallMpContainer.frame = tallContainerFrame;
+            self.tallMpContainer.alpha = tallContainerAlpha;
+        }];
+        if ([self mpIsMinimized] == minimized) return;
     }
 }
 
@@ -279,7 +290,7 @@
              self.duration.text = duration;
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {         
+     {
          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error connection"
                                                              message:[error localizedDescription]
                                                             delegate:nil
@@ -296,5 +307,9 @@
 {
     self.youTubePlayer.hidden = YES;
     [[self navigationController] popToRootViewControllerAnimated:YES];
+}
+
+- (void) dealloc {
+    [self.youTubePlayer removeFromSuperview];
 }
 @end
