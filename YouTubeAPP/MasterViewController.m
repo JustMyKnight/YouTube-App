@@ -40,6 +40,7 @@ UITableViewDataSource>
     self.videoList = [[NSMutableArray alloc] init];
     self.navigationItem.title = @"Популярные видео";
     [self getVideoList];
+    NSLog(@"Master on load%@", [[self navigationController] viewControllers]);
 }
 
 - (void)getVideoList
@@ -116,15 +117,10 @@ UITableViewDataSource>
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*DetailViewController * view1 = [[DetailViewController alloc] init];
-    [self.view addSubview:view1.view];
-    //[self.view sendSubviewToBack:view1.view];
-    [self addChildViewController: view1];
-    [view1 didMoveToParentViewController:self];
-    //[view1 getVideoList];*/
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
     //[self presentViewController:self.DetailNavigationController animated:YES completion:nil];
-    [self.navigationController pushViewController:self.DetailViewController animated:YES];
+    [[self navigationController] pushViewController:self.DetailViewController animated:YES];
+    NSLog(@"%@", [[self navigationController] viewControllers]);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

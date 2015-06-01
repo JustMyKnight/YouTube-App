@@ -23,12 +23,12 @@
     MasterViewController *MasterViewControler = [[MasterViewController alloc] init];
     MasterViewControler.DEV_KEY = developerKey;
     UINavigationController *MasterNavigationController = [[UINavigationController alloc] initWithRootViewController:MasterViewControler];
+    UINavigationController *SearchNavigationController = [UINavigationController alloc];
     SearchViewController *searchViewController = [[SearchViewController alloc] init];
        searchViewController.DEV_KEY = developerKey;
     DetailViewController *detailViewController = [[DetailViewController alloc] init];
     detailViewController.DEV_KEY = developerKey;
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [self.window makeKeyAndVisible];
     UIImage *SearchImage = [UIImage imageNamed:@"search.png"];
     UIImage *SearchImageSel = [UIImage imageNamed:@"search.png"];
     UIImage *HomeImage = [UIImage imageNamed:@"home.png"];

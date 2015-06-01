@@ -40,13 +40,14 @@
 {
     [self convertButtonTitle:@"Cancel" toTitle:@"Отмена" inView:self.searchBar];
     [super viewDidLoad];
-    self.navigationItem.title = @"Поиск";
     self.DetailViewController = [[DetailViewController alloc] init];
     self.DetailNavigationController = [[UINavigationController alloc] initWithRootViewController:self.DetailViewController];
     self.videoList = [[NSMutableArray alloc] init];
     self.searchBar.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    NSLog(@"Search on load%@", [[self navigationController] viewControllers]);
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -109,9 +110,9 @@
              youTubeVideo.title = [snippet objectForKey:@"title"];
              youTubeVideo.videoID = [[item objectForKey:@"id"] objectForKey:@"videoId"];
              youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"high"] objectForKey:@"url"];
-             [self.videoList addObject:youTubeVideo];
              youTubeVideo.published =[snippet objectForKey:@"publishedAt"];
              youTubeVideo.published=[youTubeVideo.published substringWithRange:NSMakeRange(0, [youTubeVideo.published length]-14)];
+             [self.videoList addObject:youTubeVideo];
          }
          [self.tableView reloadData];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -154,19 +155,18 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
-   // [self presentViewController:self.DetailNavigationController animated:YES completion:nil];
+    self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
+    //[self presentViewController:self.DetailNavigationController animated:YES completion:nil];
     [self.navigationController pushViewController:self.DetailViewController animated:YES];
+    NSLog(@"%@", [[self navigationController] viewControllers]);
+  //  [[self navigationController] pushViewController:self.DetailViewController animated:YES];
+    
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 90;
-}
-- (IBAction)back
-{
-[self presentViewController:self.DetailViewController animated:YES completion:nil];
 }
 
 @end

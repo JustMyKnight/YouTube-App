@@ -100,6 +100,7 @@
         self.tallMpContainer.alpha = tallContainerAlpha;
         self.TabBar.hidden = NO;
         }
+        [[self navigationController] setNavigationBarHidden:NO animated:YES];
     }
     
     else if(orientation==UIInterfaceOrientationLandscapeLeft)
@@ -107,7 +108,7 @@
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         self.TabBar.hidden = YES;
-        [[self navigationController] setNavigationBarHidden:NO animated:YES];
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
     else if(orientation==UIInterfaceOrientationLandscapeRight)  //landscape Right
     {
@@ -115,6 +116,7 @@
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         self.TabBar.hidden = YES;
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
 }
 
@@ -130,7 +132,7 @@
 }
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
-    DetailViewController *test = [[DetailViewController alloc] init];
+    //DetailViewController *test = [[DetailViewController alloc] init];
     //[[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:test animated:YES completion:nil];
     // DetailViewController *test = [[DetailViewController alloc] init];
     //[self presentViewController:test animated:YES completion:nil];
@@ -293,5 +295,6 @@
 
 - (IBAction)back
 {   self.youTubePlayer.hidden = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];}
+    [[self navigationController] popToRootViewControllerAnimated:YES];
+}
 @end
