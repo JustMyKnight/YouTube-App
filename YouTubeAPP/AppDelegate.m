@@ -21,11 +21,11 @@
     _window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     NSString *developerKey = @"AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA";
     MasterViewController *MasterViewControler = [[MasterViewController alloc] init];
-    MasterViewControler.DEV_KEY = developerKey;
-    UINavigationController *MasterNavigationController = [[UINavigationController alloc] initWithRootViewController:MasterViewControler];
-    UINavigationController *SearchNavigationController = [UINavigationController alloc];
     SearchViewController *searchViewController = [[SearchViewController alloc] init];
-       searchViewController.DEV_KEY = developerKey;
+    MasterViewControler.DEV_KEY = developerKey;
+    searchViewController.DEV_KEY = developerKey;
+    UINavigationController *MasterNavigationController = [[UINavigationController alloc] initWithRootViewController:MasterViewControler];
+    UINavigationController *SearchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     DetailViewController *detailViewController = [[DetailViewController alloc] init];
     detailViewController.DEV_KEY = developerKey;
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
@@ -40,7 +40,7 @@
     searchViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Поиск" image:SearchImage selectedImage:SearchImageSel];
     MasterViewControler.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Главная" image:HomeImage selectedImage:HomeImageSel];
     [self.window setRootViewController:tabBarController];
-    [tabBarController setViewControllers:@[MasterNavigationController, searchViewController]];
+    [tabBarController setViewControllers:@[MasterNavigationController, SearchNavigationController]];
     [self.window setBackgroundColor:[UIColor grayColor]];
     [self.window makeKeyAndVisible];
     return YES;

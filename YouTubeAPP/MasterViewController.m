@@ -40,7 +40,6 @@ UITableViewDataSource>
     self.videoList = [[NSMutableArray alloc] init];
     self.navigationItem.title = @"Популярные видео";
     [self getVideoList];
-    NSLog(@"Master on load%@", [[self navigationController] viewControllers]);
 }
 
 - (void)getVideoList

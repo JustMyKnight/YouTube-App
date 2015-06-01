@@ -25,17 +25,7 @@
 
 @implementation SearchViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 54)];
-    navBar.backgroundColor = [UIColor whiteColor];
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = @"Поиск";
-    navBar.items = @[ navItem ];
-    [self.view addSubview:navBar];
-    
-    return self;
-}
+
 - (void)viewDidLoad
 {
     [self convertButtonTitle:@"Cancel" toTitle:@"Отмена" inView:self.searchBar];
@@ -46,8 +36,7 @@
     self.searchBar.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    NSLog(@"Search on load%@", [[self navigationController] viewControllers]);
-    
+    self.navigationItem.title = @"Поиск";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -156,12 +145,7 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
-    //[self presentViewController:self.DetailNavigationController animated:YES completion:nil];
     [self.navigationController pushViewController:self.DetailViewController animated:YES];
-    NSLog(@"%@", [[self navigationController] viewControllers]);
-  //  [[self navigationController] pushViewController:self.DetailViewController animated:YES];
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

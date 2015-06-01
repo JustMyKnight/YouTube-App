@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SnO-kh-ceX">
-                    <rect key="frame" x="0.0" y="54" width="320" height="514"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Поиск" showsCancelButton="YES" id="z0w-Ud-dzb">
@@ -30,16 +30,6 @@
                         </scopeButtonTitles>
                     </searchBar>
                 </tableView>
-                <navigationBar contentMode="scaleToFill" id="mZN-Iz-Ga0">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <textAttributes key="titleTextAttributes">
-                        <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
-                    </textAttributes>
-                    <items>
-                        <navigationItem title="Поиск" id="eWw-HR-J6W"/>
-                    </items>
-                </navigationBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="141" y="13"/>
