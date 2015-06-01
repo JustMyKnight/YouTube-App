@@ -109,7 +109,7 @@ UITableViewDataSource>
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
-    [[self navigationController] pushViewController:self.DetailViewController animated:YES];
+    [self.navigationController pushViewController:self.DetailViewController animated:YES];
 }
 
 @end

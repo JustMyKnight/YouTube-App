@@ -77,7 +77,6 @@
             CGFloat y = self.view.bounds.size.height-mpHeight;
             YouTubeVideoFrame = CGRectMake(x, y-51, mpWidth, mpHeight);
             self.youTubePlayer.frame = YouTubeVideoFrame;
-            
         }
         else
         {
@@ -108,24 +107,35 @@
     }
 }
 
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
 - (BOOL)mpIsMinimized
 {
     return self.youTubePlayer.frame.origin.y < 100;
 }
 
 - (void)swipeDown:(UIGestureRecognizer *)gr {
+    NSLog(@"Before: %@", [[self navigationController] viewControllers]);
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.youTubePlayer];
+    self.SaveNavigationController=self.DetailNavigationController;
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self minimizeMp:YES animated:YES];
+     NSLog(@"After: %@", [[self navigationController] viewControllers]);
 }
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
-    //DetailViewController *test = [[DetailViewController alloc] init];
-    //[[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:test animated:YES completion:nil];
-    // DetailViewController *test = [[DetailViewController alloc] init];
-    //[self presentViewController:test animated:YES completion:nil];
+    NSLog(@"UP %@", [[self navigationController] viewControllers]);
     [self minimizeMp:NO animated:YES];
+    
 }
 
 - (void)swipeLeft:(UIGestureRecognizer *)gr {
@@ -137,6 +147,10 @@
     [UIView animateWithDuration:0.5 animations:^{
     self.youTubePlayer.frame = playerFrame;
     self.youTubePlayer.alpha= 0;
+    for (UIView *view in [self.youTubePlayer subviews])
+    {
+        [view removeFromSuperview];
+    }
     }];
 }
 
@@ -182,7 +196,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated
-{self.youTubePlayer.hidden = NO;
+{
+    self.youTubePlayer.hidden = NO;
     self.youTubePlayer.alpha= 1;
     CGRect YouTubeVideoFrame, tallContainerFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
