@@ -10,7 +10,6 @@
 #import "MasterViewController.h"
 #import "SearchViewController.h"
 #import "DetailViewController.h"
-#import "SmallVideoController.h"
 @interface AppDelegate ()
 
 @end
