@@ -18,7 +18,7 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SnO-kh-ceX">
                     <rect key="frame" x="0.0" y="31" width="320" height="537"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Поиск" showsCancelButton="YES" id="z0w-Ud-dzb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

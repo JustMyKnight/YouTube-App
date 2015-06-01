@@ -14,20 +14,15 @@
 #import "DetailViewController.h"
 #import "SearchViewController.h"
 
-
-
 @interface MasterViewController ()<UITableViewDelegate,
 UITableViewDataSource>
 
 @property (retain, nonatomic) NSDictionary *videoListJSON;
 @property (strong, nonatomic) NSMutableArray *videoList;
 @property (weak, nonatomic) IBOutlet UITableView *videoTableView;
-
 @end
 
 @implementation MasterViewController;
-
-
 
 - (void)viewDidLoad
 {
@@ -85,7 +80,6 @@ UITableViewDataSource>
     [self getVideoList];
 }
 
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -116,11 +110,6 @@ UITableViewDataSource>
 {
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
     [[self navigationController] pushViewController:self.DetailViewController animated:YES];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 258;
 }
 
 @end

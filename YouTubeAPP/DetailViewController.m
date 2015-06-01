@@ -89,6 +89,7 @@
         self.tallMpContainer.alpha = tallContainerAlpha;
         }
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
+        [self.tabBarController.tabBar setHidden:NO];
     }
     
     else if(orientation==UIInterfaceOrientationLandscapeLeft)
@@ -96,12 +97,14 @@
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
+        [self.tabBarController.tabBar setHidden:YES];
     }
     else if(orientation==UIInterfaceOrientationLandscapeRight)  //landscape Right
     {
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
+        [self.tabBarController.tabBar setHidden:YES];
     }
 }
 
@@ -192,6 +195,7 @@
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
+        [self.tabBarController.tabBar setHidden:YES];
     }
     else
     {
