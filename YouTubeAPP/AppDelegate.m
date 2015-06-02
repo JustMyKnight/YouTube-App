@@ -25,7 +25,8 @@
     detailViewController.DEV_KEY = developerKey;
     MasterViewControler.DEV_KEY = developerKey;
     searchViewController.DEV_KEY = developerKey;
-    UINavigationController *MasterNavigationController = [[UINavigationController alloc] initWithRootViewController:MasterViewControler];
+    self.masterNavigationController = [[UINavigationController alloc] initWithRootViewController:MasterViewControler];
+    
     UINavigationController *SearchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     UIImage *SearchImage = [UIImage imageNamed:@"search.png"];
@@ -39,7 +40,7 @@
     searchViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Поиск" image:SearchImage selectedImage:SearchImageSel];
     MasterViewControler.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Главная" image:HomeImage selectedImage:HomeImageSel];
     [self.window setRootViewController:tabBarController];
-    [tabBarController setViewControllers:@[MasterNavigationController, SearchNavigationController]];
+    [tabBarController setViewControllers:@[self.masterNavigationController, SearchNavigationController]];
     [self.window makeKeyAndVisible];
     return YES;
 }

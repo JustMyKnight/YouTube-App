@@ -114,7 +114,6 @@
 
 - (void)swipeDown:(UIGestureRecognizer *)gr {
     NSLog(@"Before: %@", [[self navigationController] viewControllers]);
-    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.youTubePlayer];
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -123,7 +122,6 @@
 }
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
-    NSLog(@"UP %@", [[self navigationController] viewControllers]);
     [self minimizeMp:NO animated:YES];
     
 }
@@ -168,24 +166,27 @@
             __strong UIView* v = self.youTubePlayer;
             [self.youTubePlayer removeFromSuperview];
             [self.view addSubview:v];
+            [self.view bringSubviewToFront:v];
             NSLog(@"Self.navigation controller: %@", self.navigationController);
             if (self.navigationController == nil) {
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [appDelegate.MasterNavigationController pushViewController:self animated:NO];
+                [appDelegate.masterNavigationController pushViewController:self animated:NO];
+                NSLog(@"After1: %@", [appDelegate.masterNavigationController viewControllers]);
             }
             
             tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
             tallContainerAlpha = 1.0;
         }
-        NSTimeInterval duration = (animated)? 0.5 : 0.0;
+                NSTimeInterval duration = (animated)? 0.5 : 0.0;
         [UIView animateWithDuration:duration animations:^{
             self.youTubePlayer.frame = YouTubeVideoFrame;
             self.tallMpContainer.frame = tallContainerFrame;
             self.tallMpContainer.alpha = tallContainerAlpha;
         }];
-        if ([self mpIsMinimized] == minimized) return;
+       // if ([self mpIsMinimized] == minimized) return;
     }
+    NSLog(@"%@", NSStringFromCGRect(self.youTubePlayer.frame));
 }
 
 - (void)didReceiveMemoryWarning
