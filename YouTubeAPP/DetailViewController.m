@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIView *tallMpContainer;
 @property (weak, nonatomic) IBOutlet YTPlayerView *youTubePlayer;
 @property (weak, nonatomic) IBOutlet UITableView *videoTableView;
-@property (weak, nonatomic) IBOutlet UITabBarItem *Main;
 @end
 
 @implementation DetailViewController
@@ -152,11 +151,11 @@
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 if (self.tag==1)
                 {
-                [appDelegate.masterNavigationController pushViewController:self animated:NO];
+                    [appDelegate.masterNavigationController pushViewController:self animated:NO];
                 }
                 else
                 {
-                [appDelegate.searchNavigationController pushViewController:self animated:NO];
+                    [appDelegate.searchNavigationController pushViewController:self animated:NO];
                 }
         }
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
@@ -169,7 +168,6 @@
         }];
         
     }
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -264,12 +262,6 @@
     }
     [self Videoshow];
     [super viewWillAppear:animated];
-}
-
-- (IBAction)back
-{
-    self.youTubePlayer.hidden = YES;
-    [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
 - (void) dealloc {

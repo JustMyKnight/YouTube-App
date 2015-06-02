@@ -73,12 +73,7 @@ UITableViewDataSource>
          [alertView show];
      }];
     
-    [operation start];
-    
-}
-- (void) handleRefresh
-{
-    [self getVideoList];
+    [operation start];    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
