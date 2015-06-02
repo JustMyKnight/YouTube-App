@@ -22,7 +22,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *descript;
 @property (weak, nonatomic) IBOutlet UILabel *duration;
 @property (strong, nonatomic) UINavigationController *DetailNavigationController;
-@property (strong, nonatomic) UINavigationController *SaveNavigationController;
-@property (strong, nonatomic) DetailViewController *SaveDetailController;
 @end
 

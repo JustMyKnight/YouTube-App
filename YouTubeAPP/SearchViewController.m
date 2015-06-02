@@ -143,6 +143,8 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.DetailViewController = nil;
+    self.DetailViewController = [[DetailViewController alloc] init];
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
     [self.navigationController pushViewController:self.DetailViewController animated:YES];
 }

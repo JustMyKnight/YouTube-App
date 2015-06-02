@@ -98,23 +98,13 @@
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
     }
-    else if(orientation==UIInterfaceOrientationLandscapeRight)  //landscape Right
+    else if(orientation==UIInterfaceOrientationLandscapeRight)
     {
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
     }
-}
-
-- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
-{
-    return YES;
-}
-
-- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
-{
-    return YES;
 }
 
 - (BOOL)mpIsMinimized
@@ -127,8 +117,6 @@
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.youTubePlayer];
-    
-    self.SaveNavigationController=self.DetailNavigationController;
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self minimizeMp:YES animated:YES];
     NSLog(@"After: %@", [[self navigationController] viewControllers]);
@@ -200,17 +188,15 @@
     }
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.youTubePlayer.hidden = NO;
-    self.youTubePlayer.alpha= 1;
-    CGRect YouTubeVideoFrame, tallContainerFrame;
+    CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
     CGFloat mpHeight = screenRect.size.height;
@@ -222,14 +208,6 @@
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
-    }
-    else
-    {
-        tallContainerFrame = CGRectMake(2, 253, mpWidth, 500);
-        self.tallMpContainer.frame = tallContainerFrame;
-        self.tallMpContainer.alpha = 1.0;
-        YouTubeVideoFrame = CGRectMake(0,70, mpWidth, 180);
-        self.youTubePlayer.frame = YouTubeVideoFrame;
     }
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=id%%2C+snippet%%2C+contentDetails%%2C+statistics&id=%@&key=AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA", self.selectedVideo.videoID];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -300,7 +278,6 @@
      }];
     [operation start];
     [super viewWillAppear:animated];
-    
 }
 
 - (IBAction)back

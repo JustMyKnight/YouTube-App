@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *MasterNavigationController;
+@property (strong, nonatomic) UINavigationController *DetailNavigationController;
 @end
 
