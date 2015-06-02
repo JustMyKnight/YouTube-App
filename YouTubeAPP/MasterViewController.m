@@ -27,8 +27,7 @@ UITableViewDataSource>
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.DetailViewController = [[DetailViewController alloc] init];
-    self.DetailNavigationController = [[UINavigationController alloc] initWithRootViewController:self.DetailViewController];
+    
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
     self.videoList = [[NSMutableArray alloc] init];

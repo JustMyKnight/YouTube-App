@@ -14,7 +14,6 @@
 
 @property (retain, nonatomic) NSString *DEV_KEY;
 @property (strong, nonatomic) DetailViewController *DetailViewController;
-@property (strong, nonatomic) UINavigationController *DetailNavigationController;
 - (void)getVideoList;
 
 @end

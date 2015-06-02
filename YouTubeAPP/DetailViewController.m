@@ -90,15 +90,7 @@
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
         [self.tabBarController.tabBar setHidden:NO];
     }
-    
-    else if(orientation==UIInterfaceOrientationLandscapeLeft)
-    {
-        YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
-        self.youTubePlayer.frame = YouTubeVideoFrame;
-        [[self navigationController] setNavigationBarHidden:YES animated:YES];
-        [self.tabBarController.tabBar setHidden:YES];
-    }
-    else if(orientation==UIInterfaceOrientationLandscapeRight)
+    else
     {
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
@@ -113,12 +105,10 @@
 }
 
 - (void)swipeDown:(UIGestureRecognizer *)gr {
-    NSLog(@"Before: %@", [[self navigationController] viewControllers]);
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.youTubePlayer];
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self minimizeMp:YES animated:YES];
-    NSLog(@"After: %@", [[self navigationController] viewControllers]);
 }
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
@@ -144,10 +134,10 @@
 
 - (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated
 {
+    if (![self mpIsMinimized] == minimized) return;
     CGRect tallContainerFrame, YouTubeVideoFrame;
     CGFloat tallContainerAlpha;
     UIDeviceOrientation orientation=[[UIDevice currentDevice] orientation];
-    
     if (orientation==UIInterfaceOrientationPortrait)
     {
         if (minimized)
@@ -166,27 +156,28 @@
             __strong UIView* v = self.youTubePlayer;
             [self.youTubePlayer removeFromSuperview];
             [self.view addSubview:v];
-            [self.view bringSubviewToFront:v];
-            NSLog(@"Self.navigation controller: %@", self.navigationController);
             if (self.navigationController == nil) {
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                NSLog(@"Self.navigation controller: %@", self.navigationController);
+                NSLog(@"Before Up: %@", [appDelegate.masterNavigationController viewControllers]);
                 [appDelegate.masterNavigationController pushViewController:self animated:NO];
-                NSLog(@"After1: %@", [appDelegate.masterNavigationController viewControllers]);
-            }
-            
+              //  [appDelegate.searchNavigationController pushViewController:self animated:NO];
+                NSLog(@"Master After Up: %@", [appDelegate.masterNavigationController viewControllers]);
+              //  NSLog(@"Search After Up: %@", [appDelegate.searchNavigationController viewControllers]);
+        }
             tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
             tallContainerAlpha = 1.0;
         }
-                NSTimeInterval duration = (animated)? 0.5 : 0.0;
+        NSTimeInterval duration = (animated)? 0.5 : 0.0;
         [UIView animateWithDuration:duration animations:^{
             self.youTubePlayer.frame = YouTubeVideoFrame;
             self.tallMpContainer.frame = tallContainerFrame;
             self.tallMpContainer.alpha = tallContainerAlpha;
         }];
-       // if ([self mpIsMinimized] == minimized) return;
+        
     }
-    NSLog(@"%@", NSStringFromCGRect(self.youTubePlayer.frame));
+
 }
 
 - (void)didReceiveMemoryWarning
