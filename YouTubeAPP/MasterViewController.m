@@ -26,16 +26,19 @@ UITableViewDataSource>
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
     self.videoList = [[NSMutableArray alloc] init];
     self.navigationItem.title = @"Популярные видео";
     [self getVideoList];
+    //[self.tabBarItem.
 }
 
 - (void)getVideoList
 {
+    self.videoTableView.hidden=NO;
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
     NSString *maxResults = @"20";
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, self.DEV_KEY];
@@ -106,7 +109,7 @@ UITableViewDataSource>
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.DetailViewController = nil;
-    self.DetailViewController = [[DetailViewController alloc] init];
+    self.DetailViewController = [[DetailViewController alloc] initWithTag:1];
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
     [self.navigationController pushViewController:self.DetailViewController animated:YES];
 }

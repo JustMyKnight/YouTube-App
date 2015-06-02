@@ -36,6 +36,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.navigationItem.title = @"Поиск";
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -113,6 +114,7 @@
          [alertView show];
      }];
     [operation start];
+    self.tableView.hidden = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -144,7 +146,7 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.DetailViewController = nil;
-    self.DetailViewController = [[DetailViewController alloc] init];
+    self.DetailViewController = [[DetailViewController alloc] initWithTag:0];
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
     [self.navigationController pushViewController:self.DetailViewController animated:YES];
 }

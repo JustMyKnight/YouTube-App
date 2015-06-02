@@ -26,23 +26,17 @@
 
 @implementation DetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+
+- (id) initWithTag:(int) tag
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
+    self=[super init];
     if (self)
     {
-        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Назад"
-                                                                              style:UIBarButtonItemStyleDone
-                                                                             target:self
-                                                                             action:@selector(back)];
-        [self.navigationItem setLeftBarButtonItem:leftBarButtonItem];
-        
+        _tag=tag;
     }
-    
     return self;
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -60,7 +54,7 @@
 }
 
 -(void)setScreenWithDeviceOrientation:(NSNotification *)notification
-{ CGRect tallContainerFrame, YouTubeVideoFrame;
+{ CGRect YouTubeVideoFrame;
     CGFloat tallContainerAlpha;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
@@ -82,8 +76,6 @@
         {
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
             self.youTubePlayer.frame = YouTubeVideoFrame;
-            tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
-            self.tallMpContainer.frame = tallContainerFrame;
             tallContainerAlpha = 1.0;
             self.tallMpContainer.alpha = tallContainerAlpha;
         }
@@ -112,7 +104,9 @@
 }
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
+    [UIView animateWithDuration:0.5 animations:^{
     [self minimizeMp:NO animated:YES];
+    }];
 }
 
 - (void)swipeLeft:(UIGestureRecognizer *)gr {
@@ -134,7 +128,7 @@
 - (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated
 {
     if (![self mpIsMinimized] == minimized) return;
-    CGRect tallContainerFrame, YouTubeVideoFrame;
+    CGRect YouTubeVideoFrame;
     CGFloat tallContainerAlpha;
     UIDeviceOrientation orientation=[[UIDevice currentDevice] orientation];
     if (orientation==UIInterfaceOrientationPortrait)
@@ -145,7 +139,6 @@
             CGFloat mpHeight = self.youTubePlayer.frame.size.height / 2;
             CGFloat x = self.view.bounds.size.width-mpWidth;
             CGFloat y = self.view.bounds.size.height-mpHeight;
-            tallContainerFrame = CGRectMake(x, y, 150, self.view.bounds.size.height);
             YouTubeVideoFrame = CGRectMake(x, y-51, mpWidth, mpHeight);
             tallContainerAlpha = 0.0;
             [[self navigationController] setNavigationBarHidden:NO animated:YES];
@@ -157,21 +150,21 @@
             [self.view addSubview:v];
             if (self.navigationController == nil) {
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                NSLog(@"Self.navigation controller: %@", self.navigationController);
-                NSLog(@"Before Up: %@", [appDelegate.masterNavigationController viewControllers]);
+                if (self.tag==1)
+                {
                 [appDelegate.masterNavigationController pushViewController:self animated:NO];
-              //  [appDelegate.searchNavigationController pushViewController:self animated:NO];
-                NSLog(@"Master After Up: %@", [appDelegate.masterNavigationController viewControllers]);
-              //  NSLog(@"Search After Up: %@", [appDelegate.searchNavigationController viewControllers]);
+                }
+                else
+                {
+                [appDelegate.searchNavigationController pushViewController:self animated:NO];
+                }
         }
-            tallContainerFrame = CGRectMake(2, 253, self.view.bounds.size.width, 500);
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
             tallContainerAlpha = 1.0;
         }
         NSTimeInterval duration = (animated)? 0.5 : 0.0;
         [UIView animateWithDuration:duration animations:^{
             self.youTubePlayer.frame = YouTubeVideoFrame;
-            self.tallMpContainer.frame = tallContainerFrame;
             self.tallMpContainer.alpha = tallContainerAlpha;
         }];
         
@@ -231,7 +224,7 @@
              temp = [temp substringToIndex:[temp length] - 1];
              duration = [NSMutableString stringWithString: temp];
              int i = 0;
-             int length = [duration length];
+             int length = (int)[duration length];
              while (i<length)
              {
                  char c = [duration characterAtIndex:i];

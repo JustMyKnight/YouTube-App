@@ -21,5 +21,7 @@
 @property (strong, nonatomic) DetailViewController *DetailViewController;
 @property (weak, nonatomic) IBOutlet UILabel *descript;
 @property (weak, nonatomic) IBOutlet UILabel *duration;
+@property int tag;
+- (id) initWithTag:(int) tag;
 @end
 
