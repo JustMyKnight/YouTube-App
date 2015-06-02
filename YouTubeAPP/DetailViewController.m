@@ -113,7 +113,6 @@
 
 - (void)swipeUp:(UIGestureRecognizer *)gr {
     [self minimizeMp:NO animated:YES];
-    
 }
 
 - (void)swipeLeft:(UIGestureRecognizer *)gr {
@@ -265,8 +264,6 @@
     CGFloat mpHeight = screenRect.size.height;
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
     {
-        NSLog(@"Height: %f",mpHeight);
-        NSLog(@"Widht: %f",mpWidth);
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];

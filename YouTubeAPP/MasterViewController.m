@@ -27,7 +27,6 @@ UITableViewDataSource>
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
     self.videoList = [[NSMutableArray alloc] init];
@@ -106,7 +105,6 @@ UITableViewDataSource>
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     self.DetailViewController = nil;
     self.DetailViewController = [[DetailViewController alloc] init];
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
