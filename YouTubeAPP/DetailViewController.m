@@ -193,22 +193,8 @@
     [super didReceiveMemoryWarning];
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
+-(void) Videoshow
 {
-    CGRect YouTubeVideoFrame;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat mpWidth = screenRect.size.width;
-    CGFloat mpHeight = screenRect.size.height;
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
-    {
-        NSLog(@"Height: %f",mpHeight);
-        NSLog(@"Widht: %f",mpWidth);
-        YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
-        self.youTubePlayer.frame = YouTubeVideoFrame;
-        [[self navigationController] setNavigationBarHidden:YES animated:YES];
-        [self.tabBarController.tabBar setHidden:YES];
-    }
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=id%%2C+snippet%%2C+contentDetails%%2C+statistics&id=%@&key=AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA", self.selectedVideo.videoID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -277,6 +263,24 @@
          [alertView show];
      }];
     [operation start];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    CGRect YouTubeVideoFrame;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat mpWidth = screenRect.size.width;
+    CGFloat mpHeight = screenRect.size.height;
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+    {
+        NSLog(@"Height: %f",mpHeight);
+        NSLog(@"Widht: %f",mpWidth);
+        YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
+        self.youTubePlayer.frame = YouTubeVideoFrame;
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
+        [self.tabBarController.tabBar setHidden:YES];
+    }
+    [self Videoshow];
     [super viewWillAppear:animated];
 }
 
