@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Admin. All rights reserved.
 //
 
+//Class with YouTube video properties
 #import <Foundation/Foundation.h>
 
 @interface YouTubeVideo : NSObject

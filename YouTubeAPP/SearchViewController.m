@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad
 {
-    [self convertButtonTitle:@"Cancel" toTitle:@"Отмена" inView:self.searchBar];
+    [self convertButtonTitle:@"Cancel" toTitle:@"Отмена" inView:self.searchBar]; //Add custom title for cancel button in search bar
     [super viewDidLoad];
     self.DetailViewController = [[DetailViewController alloc] init];
     self.DetailNavigationController = [[UINavigationController alloc] initWithRootViewController:self.DetailViewController];
@@ -44,7 +44,7 @@
     [self.tableView setContentOffset:CGPointZero animated:NO];
 }
 
-- (void)convertButtonTitle:(NSString *)from toTitle:(NSString *)to inView:(UIView *)view
+- (void)convertButtonTitle:(NSString *)from toTitle:(NSString *)to inView:(UIView *)view //custom description of cancel button in search bar
 {
     if ([view isKindOfClass:[UIButton class]])
     {
@@ -77,12 +77,13 @@
     [self.view endEditing:YES];
 }
 
+//get JSON data for parsering with search string
 - (void)getVideoList
 {
-    NSString *searchString = [self.searchBar.text stringByReplacingOccurrencesOfString:@" " withString: @"+"];
+    NSString *searchString = [self.searchBar.text stringByReplacingOccurrencesOfString:@" " withString: @"+"]; //replace spaces with '+' in search string
     searchString = [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *maxResults = @"50";
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?&part=snippet&q=%@&fields=items(id%%2Csnippet)&maxResults=%@&key=%@", searchString, maxResults, self.DEV_KEY];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?&part=snippet&q=%@&fields=items(id%%2Csnippet)&maxResults=%@&key=%@", searchString, maxResults, self.DEV_KEY]; //url for obtain JSON data
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -122,12 +123,12 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section //return number of elements in videolist array
 {
     return [self.videoList count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath //init custom cells for search table
 {
     static NSString *cellIdentifier = @"Cell";
     CustomVideoCell *cell = (CustomVideoCell *)[self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -143,17 +144,12 @@
     return cell;
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath //move to detail controller from search
 {
     self.DetailViewController = nil;
     self.DetailViewController = [[DetailViewController alloc] initWithTag:0];
     self.DetailViewController.selectedVideo = self.videoList[indexPath.row];
     [self.navigationController pushViewController:self.DetailViewController animated:YES];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 90;
 }
 
 @end

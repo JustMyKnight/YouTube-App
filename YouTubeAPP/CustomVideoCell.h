@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 AShi. All rights reserved.
 //
 
+//Custom cell for main table (MasterView controller)
 #import <UIKit/UIKit.h>
 #import <YTPlayerView.h>
 

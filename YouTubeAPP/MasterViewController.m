@@ -26,16 +26,14 @@ UITableViewDataSource>
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
     self.videoList = [[NSMutableArray alloc] init];
     self.navigationItem.title = @"Популярные видео";
     [self getVideoList];
-    //[self.tabBarItem.
 }
-
+//get list of video from youtube Popular chanel using Youtube api v3
 - (void)getVideoList
 {
     self.videoTableView.hidden=NO;
@@ -45,7 +43,7 @@ UITableViewDataSource>
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer]; //parsering JSON Data from recieved page
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          self.videoListJSON = (NSDictionary *)responseObject;
@@ -61,7 +59,7 @@ UITableViewDataSource>
              youTubeVideo.published=[youTubeVideo.published substringWithRange:NSMakeRange(0, [youTubeVideo.published length]-14)];             
              [self.videoList addObject:youTubeVideo];
          }
-    [self.videoTableView reloadData];
+    [self.videoTableView reloadData]; //ReloadData in table, when connection established
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          
@@ -86,6 +84,7 @@ UITableViewDataSource>
     return [self.videoList count];
 }
 
+//custom cell for main table
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
@@ -102,6 +101,7 @@ UITableViewDataSource>
     return cell;
 }
 
+//open detail video description when user select table row
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.DetailViewController = nil;
     self.DetailViewController = [[DetailViewController alloc] initWithTag:1];

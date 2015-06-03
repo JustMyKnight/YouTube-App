@@ -14,11 +14,12 @@
 
 @end
 
+//App init
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    NSString *developerKey = @"AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA";
+    NSString *developerKey = @"AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA"; //create developer key for work with YouTube api
     MasterViewController *MasterViewControler = [[MasterViewController alloc] init];
     SearchViewController *searchViewController = [[SearchViewController alloc] init];
     DetailViewController *detailViewController = [[DetailViewController alloc] init];
@@ -27,7 +28,7 @@
     searchViewController.DEV_KEY = developerKey;
     self.masterNavigationController = [[UINavigationController alloc] initWithRootViewController:MasterViewControler];
     self.searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    UITabBarController *tabBarController = [[UITabBarController alloc] init]; //Create TabBar with two NavigationController.
     UIImage *SearchImage = [UIImage imageNamed:@"search.png"];
     UIImage *SearchImageSel = [UIImage imageNamed:@"search.png"];
     UIImage *HomeImage = [UIImage imageNamed:@"home.png"];

@@ -25,9 +25,7 @@
 
 @implementation DetailViewController
 
-
-
-- (id) initWithTag:(int) tag
+- (id) initWithTag:(int) tag //init tag that shows what controller opened detail controller
 {
     self=[super init];
     if (self)
@@ -43,7 +41,7 @@
     UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setScreenWithDeviceOrientation:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setScreenWithDeviceOrientation:) name:@"UIDeviceOrientationDidChangeNotification" object:nil]; //activate Notification Center for screen rotation
     swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -52,7 +50,7 @@
     [self.youTubePlayer addGestureRecognizer:swipeLeft];
 }
 
--(void)setScreenWithDeviceOrientation:(NSNotification *)notification
+-(void)setScreenWithDeviceOrientation:(NSNotification *)notification //set size of the youtubeplayer for any interface orientation
 {
     CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -62,7 +60,7 @@
     if(orientation==UIInterfaceOrientationPortrait)  //Portrait orientation
     {
         NSArray* array =[self.navigationController viewControllers];
-        if (array[0]==0)
+        if (array[0]==0) //set position and size of the youtubeplayer in portrait orientation, when it was swiped down.
         {
             CGFloat mpWidth = 160;
             CGFloat mpHeight = 90;
@@ -79,7 +77,7 @@
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
         [self.tabBarController.tabBar setHidden:NO];
     }
-    else
+    else //full screen in landscape orientation
     {
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
@@ -93,32 +91,32 @@
     return self.youTubePlayer.frame.origin.y < 100;
 }
 
-- (void)swipeDown:(UIGestureRecognizer *)gr {
+- (void)swipeDown:(UIGestureRecognizer *)gr { //define swipe down gesture on youtubeplayer
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.window addSubview:self.youTubePlayer];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [appDelegate.window addSubview:self.youTubePlayer]; //move youtubeplayer in separate window in the corner
+    [self.navigationController popToRootViewControllerAnimated:YES]; //go to root controller of the detail view
     [self minimizeMp:YES animated:YES];
 }
 
-- (void)swipeUp:(UIGestureRecognizer *)gr {
+- (void)swipeUp:(UIGestureRecognizer *)gr { //define swipe up gesture on youtubeplayer
     [UIView animateWithDuration:0.5 animations:^{
     [self minimizeMp:NO animated:YES];
     }];
 }
 
-- (void)swipeLeft:(UIGestureRecognizer *)gr {
+- (void)swipeLeft:(UIGestureRecognizer *)gr { //define swipe left gesture on youtubeplayer
     if ([self mpIsMinimized])
         return;
-    [self.youTubePlayer stopVideo];
+    [self.youTubePlayer stopVideo]; //stop video, when youtubeplayer was moved
     CGRect playerFrame = self.youTubePlayer.frame;
     playerFrame.origin.x = -self.youTubePlayer.frame.size.width;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{ //create animation of disappearance when youtubeplayer is moving.
         self.youTubePlayer.frame = playerFrame;
         self.youTubePlayer.alpha= 0;
         }];
 }
 
-- (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated
+- (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated //operation with youtubeplayer when user swipe it down or up
 {
     if (![self mpIsMinimized] == minimized) return;
     CGRect YouTubeVideoFrame;
@@ -136,7 +134,7 @@
             tallContainerAlpha = 0.0;
             [[self navigationController] setNavigationBarHidden:NO animated:YES];
         }
-        else
+        else //open detail view after swipe up youtubeplayer
         {
             __strong UIView* v = self.youTubePlayer;
             [self.youTubePlayer removeFromSuperview];
@@ -169,7 +167,7 @@
     [super didReceiveMemoryWarning];
 }
 
--(void) Videoshow
+-(void) Videoshow //get info about video using YouTubeApi v3
 {
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=id%%2C+snippet%%2C+contentDetails%%2C+statistics&id=%@&key=AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA", self.selectedVideo.videoID];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -211,7 +209,7 @@
              [self.like setText:youTubeVideo.likesCount];
              [self.dislike setText:youTubeVideo.dislikesCount];
              [self.descript setText: youTubeVideo.Description];
-             NSMutableString *duration = [NSMutableString stringWithString:youTubeVideo.duration];
+             NSMutableString *duration = [NSMutableString stringWithString:youTubeVideo.duration]; //convert duration time from API to readable view
              NSString *temp = [duration substringFromIndex:2];
              temp = [temp substringToIndex:[temp length] - 1];
              duration = [NSMutableString stringWithString: temp];
@@ -241,9 +239,8 @@
     [operation start];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated //operation with video when detail view was opened
 {
-    
     CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
@@ -259,6 +256,7 @@
     [super viewWillAppear:animated];
 }
 
+//clear memory
 - (void) dealloc {
     [self.youTubePlayer removeFromSuperview];
 }

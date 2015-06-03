@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Admin. All rights reserved.
 //
 
+//Create custom cell for search controller
 #import <UIKit/UIKit.h>
 
 @interface SearchVideoCell : UITableViewCell
