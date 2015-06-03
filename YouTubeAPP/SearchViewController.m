@@ -36,7 +36,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.navigationItem.title = @"Поиск";
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

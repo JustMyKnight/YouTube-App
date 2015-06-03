@@ -142,12 +142,13 @@
             if (self.navigationController == nil) {
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 if (self.tag==1)
-                {
+                {NSLog(@"%@", [[self navigationController] viewControllers]);
                     [appDelegate.masterNavigationController pushViewController:self animated:NO];
-                }
+                    NSLog(@"%@", [[self navigationController] viewControllers]);                }
                 else
-                {
+                {NSLog(@"%@", [[self navigationController] viewControllers]);
                     [appDelegate.searchNavigationController pushViewController:self animated:NO];
+                    NSLog(@"%@", [[self navigationController] viewControllers]);
                 }
         }
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
@@ -240,7 +241,14 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated //operation with video when detail view was opened
-{
+{ AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    for (UIView *subView in appDelegate.window.subviews)
+    {
+        if ([subView isKindOfClass:[self.youTubePlayer class]])
+        {
+            [subView removeFromSuperview];
+        }
+    }
     CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
