@@ -53,8 +53,8 @@
 }
 
 -(void)setScreenWithDeviceOrientation:(NSNotification *)notification
-{ CGRect YouTubeVideoFrame;
-    CGFloat tallContainerAlpha;
+{
+    CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
     CGFloat mpHeight = screenRect.size.height;
@@ -75,8 +75,6 @@
         {
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
             self.youTubePlayer.frame = YouTubeVideoFrame;
-            tallContainerAlpha = 1.0;
-            self.tallMpContainer.alpha = tallContainerAlpha;
         }
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
         [self.tabBarController.tabBar setHidden:NO];
@@ -117,11 +115,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         self.youTubePlayer.frame = playerFrame;
         self.youTubePlayer.alpha= 0;
-        for (UIView *view in [self.youTubePlayer subviews])
-        {
-            [view removeFromSuperview];
-        }
-    }];
+        }];
 }
 
 - (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated
@@ -249,6 +243,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
     CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;

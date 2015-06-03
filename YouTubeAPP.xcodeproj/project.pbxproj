@@ -54,8 +54,8 @@
 		84C10ADF1B0D7FED004CC9F2 /* YouTubeAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTubeAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C10AE31B0D7FED004CC9F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84C10AE41B0D7FED004CC9F2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		84C10AE61B0D7FED004CC9F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		84C10AE71B0D7FED004CC9F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		84C10AE61B0D7FED004CC9F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = YouTubeAPP/AppDelegate.h; sourceTree = "<group>"; };
+		84C10AE71B0D7FED004CC9F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = YouTubeAPP/AppDelegate.m; sourceTree = "<group>"; };
 		84C10AF81B0D7FED004CC9F2 /* YouTubeAPPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YouTubeAPPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C10AFD1B0D7FED004CC9F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84C10AFE1B0D7FED004CC9F2 /* YouTubeAPPTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YouTubeAPPTests.m; sourceTree = "<group>"; };
@@ -109,9 +109,20 @@
 			path = YouTubeAPP;
 			sourceTree = "<group>";
 		};
+		848A11AD1B1EBC8200AF6C19 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				84C10AE61B0D7FED004CC9F2 /* AppDelegate.h */,
+				84C10AE71B0D7FED004CC9F2 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
 		84BA42551B140C6A0097300B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				848A11AD1B1EBC8200AF6C19 /* AppDelegate */,
+				84C10B111B0D811B004CC9F2 /* YouTubeVideoClass */,
 				84C10B2A1B0DB8C6004CC9F2 /* CustomVideoCell */,
 				7C8882921B1312EF00948449 /* SearchVideoCell */,
 			);
@@ -142,17 +153,14 @@
 		84C10AE11B0D7FED004CC9F2 /* YouTubeAPP */ = {
 			isa = PBXGroup;
 			children = (
+				84C10B121B0D8144004CC9F2 /* Interface */,
 				84BA42551B140C6A0097300B /* Model */,
 				7C88828B1B12FBC100948449 /* home.png */,
 				7CF727E11B0F2C6B006CA40D /* dislike.png */,
 				7CF727DF1B0F2B4B006CA40D /* 1stbtbzy.vichan.png */,
 				7CB618B31B0EDA1900E27B52 /* search.png */,
-				84C10B121B0D8144004CC9F2 /* Interface */,
-				84C10B111B0D811B004CC9F2 /* YouTubeVideoClass */,
 				84C10B0A1B0D8036004CC9F2 /* YouTube-logo-full_color.png */,
 				84C10B0C1B0D8054004CC9F2 /* Images.xcassets */,
-				84C10AE61B0D7FED004CC9F2 /* AppDelegate.h */,
-				84C10AE71B0D7FED004CC9F2 /* AppDelegate.m */,
 				84C10B081B0D8022004CC9F2 /* LaunchScreen.xib */,
 				84C10AE21B0D7FED004CC9F2 /* Supporting Files */,
 			);
@@ -192,6 +200,7 @@
 				84C10B0F1B0D8117004CC9F2 /* YouTubeVideo.m */,
 			);
 			name = YouTubeVideoClass;
+			path = YouTubeAPP;
 			sourceTree = "<group>";
 		};
 		84C10B121B0D8144004CC9F2 /* Interface */ = {
