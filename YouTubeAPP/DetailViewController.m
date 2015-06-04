@@ -105,8 +105,7 @@
 }
 
 - (void)swipeLeft:(UIGestureRecognizer *)gr { //define swipe left gesture on youtubeplayer
-    if ([self mpIsMinimized])
-        return;
+    if ([self mpIsMinimized]) return;
     [self.youTubePlayer stopVideo]; //stop video, when youtubeplayer was moved
     CGRect playerFrame = self.youTubePlayer.frame;
     playerFrame.origin.x = -self.youTubePlayer.frame.size.width;
@@ -139,18 +138,18 @@
             __strong UIView* v = self.youTubePlayer;
             [self.youTubePlayer removeFromSuperview];
             [self.view addSubview:v];
-            if (self.navigationController == nil) {
+            if (self.navigationController == nil)
+            {
                 AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 if (self.tag==1)
-                {NSLog(@"%@", [[self navigationController] viewControllers]);
-                    [appDelegate.masterNavigationController pushViewController:self animated:NO];
-                    NSLog(@"%@", [[self navigationController] viewControllers]);                }
+                    {
+                        [appDelegate.masterNavigationController pushViewController:self animated:YES];
+                    }
                 else
-                {NSLog(@"%@", [[self navigationController] viewControllers]);
-                    [appDelegate.searchNavigationController pushViewController:self animated:NO];
-                    NSLog(@"%@", [[self navigationController] viewControllers]);
-                }
-        }
+                    {
+                        [appDelegate.searchNavigationController pushViewController:self animated:YES];
+                    }
+            }
             YouTubeVideoFrame = CGRectMake(0, 70, self.view.bounds.size.width, 180);
             tallContainerAlpha = 1.0;
         }
@@ -159,7 +158,6 @@
             self.youTubePlayer.frame = YouTubeVideoFrame;
             self.tallMpContainer.alpha = tallContainerAlpha;
         }];
-        
     }
 }
 
@@ -195,7 +193,7 @@
              NSDictionary *playerVars = @{@"playsinline" : @1,
                                           @"modestbranding": @1,
                                           @"showinfo": @0,
-                                          @"controls": @2,
+                                          @"controls": @1,
                                           @"iv_load_policy": @3,
                                           @"rel": @0,
                                           @"theme": @"light",
@@ -241,7 +239,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated //operation with video when detail view was opened
-{ AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     for (UIView *subView in appDelegate.window.subviews)
     {
         if ([subView isKindOfClass:[self.youTubePlayer class]])
