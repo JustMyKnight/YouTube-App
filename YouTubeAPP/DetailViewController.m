@@ -92,6 +92,8 @@
 }
 
 - (void)swipeDown:(UIGestureRecognizer *)gr { //define swipe down gesture on youtubeplayer
+    UIDeviceOrientation orientation=[[UIDevice currentDevice] orientation];
+    if(orientation!=UIInterfaceOrientationPortrait) return;
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.youTubePlayer]; //move youtubeplayer in separate window in the corner
     [self.navigationController popToRootViewControllerAnimated:YES]; //go to root controller of the detail view

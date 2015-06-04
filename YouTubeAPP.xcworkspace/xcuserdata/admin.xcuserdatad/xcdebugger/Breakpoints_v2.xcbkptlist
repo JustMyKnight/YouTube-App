@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouTubeAPP/DetailViewController.m"
-            timestampString = "455079635.710526"
+            timestampString = "455086761.655212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-swipeDown:"
             landmarkType = "5">
          </BreakpointContent>

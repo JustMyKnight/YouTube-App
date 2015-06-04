@@ -38,7 +38,7 @@ UITableViewDataSource>
 {
     self.videoTableView.hidden=NO;
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
-    NSString *maxResults = @"20";
+    NSString *maxResults = @"30";
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, self.DEV_KEY];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
