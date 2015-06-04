@@ -36,7 +36,6 @@ UITableViewDataSource>
 //get list of video from youtube Popular chanel using Youtube api v3
 - (void)getVideoList
 {
-    self.videoTableView.hidden=NO;
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
     NSString *maxResults = @"30";
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, self.DEV_KEY];
@@ -98,6 +97,7 @@ UITableViewDataSource>
     [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
     [cell.title setText:youTubeVideo.title];
     [cell.PubledAt setText:youTubeVideo.published];
+    self.videoTableView.hidden=NO;
     return cell;
 }
 

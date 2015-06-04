@@ -48,6 +48,7 @@
     [self.youTubePlayer addGestureRecognizer:swipeDown];
     [self.youTubePlayer addGestureRecognizer:swipeUp];
     [self.youTubePlayer addGestureRecognizer:swipeLeft];
+    [self Videoshow];
 }
 
 -(void)setScreenWithDeviceOrientation:(NSNotification *)notification //set size of the youtubeplayer for any interface orientation
@@ -261,8 +262,7 @@
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
     }
-    [self Videoshow];
-    [super viewWillAppear:animated];
+        [super viewWillAppear:animated];
 }
 
 //clear memory
