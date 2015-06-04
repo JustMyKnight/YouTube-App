@@ -238,6 +238,8 @@
                                                    otherButtonTitles:nil];
          [alertView show];
      }];
+    self.tallMpContainer.hidden=NO;
+    self.youTubePlayer.hidden=NO;
     [operation start];
 }
 
