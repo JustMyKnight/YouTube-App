@@ -13,6 +13,8 @@
 #import "YouTubeVideo.h"
 #import "DetailViewController.h"
 #import "MasterViewController.h"
+#import "AppDelegate.h"
+#import "LLARingSpinnerView.h"
 
 @interface SearchViewController () <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
@@ -79,6 +81,15 @@
 //get JSON data for parsering with search string
 - (void)getVideoList
 {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat mpWidth = screenRect.size.width;
+    CGFloat mpHeight = screenRect.size.height;
+    LLARingSpinnerView *spinnerView = [[LLARingSpinnerView alloc] initWithFrame:CGRectMake(mpWidth/2-25, mpHeight/2-25, 30, 30)];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.window addSubview:spinnerView];
+    spinnerView.lineWidth = 1.0f;
+    spinnerView.tintColor = [UIColor redColor];
+    [spinnerView startAnimating];
     NSString *searchString = [self.searchBar.text stringByReplacingOccurrencesOfString:@" " withString: @"+"]; //replace spaces with '+' in search string
     searchString = [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *maxResults = @"50";
@@ -102,10 +113,13 @@
              youTubeVideo.published =[snippet objectForKey:@"publishedAt"];
              youTubeVideo.published=[youTubeVideo.published substringWithRange:NSMakeRange(0, [youTubeVideo.published length]-14)];
              [self.videoList addObject:youTubeVideo];
+             [spinnerView removeFromSuperview];
+             self.tableView.hidden = NO;
          }
          [self.tableView reloadData];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
+         [spinnerView removeFromSuperview];
          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error connection"
                                                              message:[error localizedDescription]
                                                             delegate:nil
@@ -114,7 +128,7 @@
          [alertView show];
      }];
     [operation start];
-    self.tableView.hidden = NO;
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -13,6 +13,8 @@
 #import "YouTubeVideo.h"
 #import "DetailViewController.h"
 #import "SearchViewController.h"
+#import "LLARingSpinnerView.h"
+#import "AppDelegate.h"
 
 @interface MasterViewController ()<UITableViewDelegate,
 UITableViewDataSource>
@@ -36,6 +38,15 @@ UITableViewDataSource>
 //get list of video from youtube Popular chanel using Youtube api v3
 - (void)getVideoList
 {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat mpWidth = screenRect.size.width;
+    CGFloat mpHeight = screenRect.size.height;
+    LLARingSpinnerView *spinnerView = [[LLARingSpinnerView alloc] initWithFrame:CGRectMake(mpWidth/2-25, mpHeight/2-25, 30, 30)];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.window addSubview:spinnerView];
+    spinnerView.lineWidth = 1.0f;
+    spinnerView.tintColor = [UIColor redColor];
+    [spinnerView startAnimating];
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
     NSString *maxResults = @"30";
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, self.DEV_KEY];
@@ -57,10 +68,12 @@ UITableViewDataSource>
              youTubeVideo.published =[snippet objectForKey:@"publishedAt"];
              youTubeVideo.published=[youTubeVideo.published substringWithRange:NSMakeRange(0, [youTubeVideo.published length]-14)];             
              [self.videoList addObject:youTubeVideo];
+             [spinnerView removeFromSuperview];
          }
     [self.videoTableView reloadData]; //ReloadData in table, when connection established
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+     } 
+                                     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     { [spinnerView removeFromSuperview];
          
          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error connection!!"
                                                              message:[error localizedDescription]

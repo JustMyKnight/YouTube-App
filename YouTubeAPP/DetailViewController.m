@@ -204,14 +204,11 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
     CGFloat mpHeight = screenRect.size.height;
-    NSLog(@"%f", mpHeight/2);
-    NSLog(@"%f", mpWidth/2);
     LLARingSpinnerView *spinnerView = [[LLARingSpinnerView alloc] initWithFrame:CGRectMake(mpWidth/2-25, mpHeight/2-25, 30, 30)];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:spinnerView];
     spinnerView.lineWidth = 1.0f;
     spinnerView.tintColor = [UIColor redColor];
-    
     [spinnerView startAnimating];
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=id%%2C+snippet%%2C+contentDetails%%2C+statistics&id=%@&key=AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA", self.selectedVideo.videoID];
     NSURL *url = [NSURL URLWithString:urlString];
