@@ -20,14 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - LLARingSpinnerView (0.1.3)
   - youtube-ios-player-helper (0.1.3)
 
 DEPENDENCIES:
   - AFNetworking
+  - LLARingSpinnerView
   - youtube-ios-player-helper (~> 0.1.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  LLARingSpinnerView: d5f9057460e97989aff1c52a247c6acb62b8d883
   youtube-ios-player-helper: fccae0f10449976a025a95328e3c42ab521f93cb
 
 COCOAPODS: 0.37.1

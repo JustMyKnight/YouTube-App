@@ -13,6 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "MasterViewController.h"
 #import "AppDelegate.h"
+#import "LLARingSpinnerView.h"
 
 @interface DetailViewController ()
 @property (retain, nonatomic) NSDictionary *videoListJSON;
@@ -21,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIView *tallMpContainer;
 @property (weak, nonatomic) IBOutlet YTPlayerView *youTubePlayer;
 @property (weak, nonatomic) IBOutlet UITableView *videoTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *like_img;
+@property (weak, nonatomic) IBOutlet UIImageView *dislike_img;
 @end
 
 @implementation DetailViewController
@@ -34,10 +37,32 @@
     }
     return self;
 }
-- (void)viewDidLoad
+
+- (void)indicator:(int)MPindicator
 {
-    [super viewDidLoad];
-    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    if(MPindicator==1)
+    { NSLog(@"%d", MPindicator);
+     [indicator startAnimating];
+    }
+    else
+    {
+    NSLog(@"%d", MPindicator);
+        for (UIView *subView in self.view.subviews)
+        {
+            if ([subView isKindOfClass:[indicator class]])
+            {
+                [subView removeFromSuperview];
+            }
+        }
+      }
+}
+- (void)viewDidLoad
+{    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
     UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -48,7 +73,10 @@
     [self.youTubePlayer addGestureRecognizer:swipeDown];
     [self.youTubePlayer addGestureRecognizer:swipeUp];
     [self.youTubePlayer addGestureRecognizer:swipeLeft];
+    //[self indicator:1];
+    
     [self Videoshow];
+    
 }
 
 -(void)setScreenWithDeviceOrientation:(NSNotification *)notification //set size of the youtubeplayer for any interface orientation
@@ -82,8 +110,10 @@
     {
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
+        
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
+        
     }
 }
 
@@ -171,6 +201,21 @@
 
 -(void) Videoshow //get info about video using YouTubeApi v3
 {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat mpWidth = screenRect.size.width;
+    CGFloat mpHeight = screenRect.size.height;
+    NSLog(@"%f", mpHeight/2);
+    NSLog(@"%f", mpWidth/2);
+    LLARingSpinnerView *spinnerView = [[LLARingSpinnerView alloc] initWithFrame:CGRectMake(mpWidth/2-25, mpHeight/2-25, 30, 30)];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.window addSubview:spinnerView];
+    spinnerView.lineWidth = 1.0f;
+    spinnerView.tintColor = [UIColor redColor];
+    
+    [spinnerView startAnimating];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //sleep(2);
+        
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=id%%2C+snippet%%2C+contentDetails%%2C+statistics&id=%@&key=AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA", self.selectedVideo.videoID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -203,11 +248,12 @@
                                           @"fs":@0,
                                           @"autohide":@0
                                           };
+            
              [self.youTubePlayer loadWithVideoId:self.selectedVideo.videoID playerVars:playerVars];
              [self.youTubePlayer playVideo];
-             [self.PublishedAt setText:self.selectedVideo.published];
+             [self.PublishedAt setText:[NSString stringWithFormat:@"Опубликовано: %@",self.selectedVideo.published]];
              [self.Title setText:self.selectedVideo.title];
-             [self.view_counts setText:youTubeVideo.viewsCount];
+             [self.view_counts setText:[NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount]];
              [self.like setText:youTubeVideo.likesCount];
              [self.dislike setText:youTubeVideo.dislikesCount];
              [self.descript setText: youTubeVideo.Description];
@@ -227,7 +273,9 @@
                  }
                  i++;
              }
-             self.duration.text = duration;
+             [self.duration setText:[NSString stringWithFormat:@"Продолжительность: %@", duration]];
+             self.dislike_img.hidden=NO;
+             self.like_img.hidden=NO;
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -238,9 +286,12 @@
                                                    otherButtonTitles:nil];
          [alertView show];
      }];
-    self.tallMpContainer.hidden=NO;
-    self.youTubePlayer.hidden=NO;
     [operation start];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sleep(5);
+            [spinnerView removeFromSuperview];
+        });
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated //operation with video when detail view was opened
@@ -271,4 +322,5 @@
 - (void) dealloc {
     [self.youTubePlayer removeFromSuperview];
 }
+
 @end

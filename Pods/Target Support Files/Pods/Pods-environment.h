@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 4
 
+// LLARingSpinnerView
+#define COCOAPODS_POD_AVAILABLE_LLARingSpinnerView
+#define COCOAPODS_VERSION_MAJOR_LLARingSpinnerView 0
+#define COCOAPODS_VERSION_MINOR_LLARingSpinnerView 1
+#define COCOAPODS_VERSION_PATCH_LLARingSpinnerView 3
+
 // youtube-ios-player-helper
 #define COCOAPODS_POD_AVAILABLE_youtube_ios_player_helper
 #define COCOAPODS_VERSION_MAJOR_youtube_ios_player_helper 0
