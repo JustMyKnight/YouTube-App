@@ -213,9 +213,6 @@
     spinnerView.tintColor = [UIColor redColor];
     
     [spinnerView startAnimating];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //sleep(2);
-        
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=id%%2C+snippet%%2C+contentDetails%%2C+statistics&id=%@&key=AIzaSyAUax-Gjc6Dlech0E0hXsR30WKX2i5TGtA", self.selectedVideo.videoID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -276,9 +273,10 @@
              [self.duration setText:[NSString stringWithFormat:@"Продолжительность: %@", duration]];
              self.dislike_img.hidden=NO;
              self.like_img.hidden=NO;
+             [spinnerView removeFromSuperview];
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+     { [spinnerView removeFromSuperview];
          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error connection"
                                                              message:[error localizedDescription]
                                                             delegate:nil
@@ -287,11 +285,6 @@
          [alertView show];
      }];
     [operation start];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            sleep(5);
-            [spinnerView removeFromSuperview];
-        });
-    });
 }
 
 - (void)viewWillAppear:(BOOL)animated //operation with video when detail view was opened
