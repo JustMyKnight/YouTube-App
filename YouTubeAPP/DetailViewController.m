@@ -38,29 +38,6 @@
     return self;
 }
 
-- (void)indicator:(int)MPindicator
-{
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    indicator.center = self.view.center;
-    [self.view addSubview:indicator];
-    [indicator bringSubviewToFront:self.view];
-    if(MPindicator==1)
-    { NSLog(@"%d", MPindicator);
-     [indicator startAnimating];
-    }
-    else
-    {
-    NSLog(@"%d", MPindicator);
-        for (UIView *subView in self.view.subviews)
-        {
-            if ([subView isKindOfClass:[indicator class]])
-            {
-                [subView removeFromSuperview];
-            }
-        }
-      }
-}
 - (void)viewDidLoad
 {    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
     UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];
@@ -73,8 +50,6 @@
     [self.youTubePlayer addGestureRecognizer:swipeDown];
     [self.youTubePlayer addGestureRecognizer:swipeUp];
     [self.youTubePlayer addGestureRecognizer:swipeLeft];
-    //[self indicator:1];
-    
     [self Videoshow];
     
 }

@@ -15,5 +15,4 @@
 @property (retain, nonatomic) NSString *DEV_KEY;
 @property (strong, nonatomic) DetailViewController *DetailViewController;
 - (void)getVideoList;
-
 @end

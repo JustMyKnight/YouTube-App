@@ -28,10 +28,19 @@ UITableViewDataSource>
 
 - (void)viewDidLoad
 {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoList"];
+    
     [super viewDidLoad];
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
-    self.videoList = [[NSMutableArray alloc] init];
+    
+    if (data != nil) {
+        NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        self.videoList = [[NSMutableArray alloc] initWithArray:array];
+    } else {
+        self.videoList = [[NSMutableArray alloc] init];
+    }
+    
     self.navigationItem.title = @"Популярные видео";
     [self getVideoList];
 }
@@ -56,6 +65,7 @@ UITableViewDataSource>
     operation.responseSerializer = [AFJSONResponseSerializer serializer]; //parsering JSON Data from recieved page
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         NSMutableArray*newVideos = [NSMutableArray new];
          self.videoListJSON = (NSDictionary *)responseObject;
          NSDictionary *items = [responseObject objectForKey:@"items"];
          for (NSDictionary *item in items )
@@ -70,7 +80,9 @@ UITableViewDataSource>
              [self.videoList addObject:youTubeVideo];
              [spinnerView removeFromSuperview];
          }
-    [self.videoTableView reloadData]; //ReloadData in table, when connection established
+         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.videoList];
+         [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"videoList"];
+         [self.videoTableView reloadData]; //ReloadData in table, when connection established
      } 
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error)
      { [spinnerView removeFromSuperview];

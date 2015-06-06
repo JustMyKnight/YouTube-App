@@ -9,7 +9,7 @@
 //Class with YouTube video properties
 #import <Foundation/Foundation.h>
 
-@interface YouTubeVideo : NSObject
+@interface YouTubeVideo : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *Description;
