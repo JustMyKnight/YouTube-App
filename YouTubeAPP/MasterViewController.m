@@ -77,9 +77,11 @@ UITableViewDataSource>
              youTubeVideo.previewUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"medium"] objectForKey:@"url"];
              youTubeVideo.published =[snippet objectForKey:@"publishedAt"];
              youTubeVideo.published=[youTubeVideo.published substringWithRange:NSMakeRange(0, [youTubeVideo.published length]-14)];             
-             [self.videoList addObject:youTubeVideo];
+             [newVideos addObject:youTubeVideo];
              [spinnerView removeFromSuperview];
          }
+         
+         self.videoList=newVideos;
          NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.videoList];
          [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"videoList"];
          [self.videoTableView reloadData]; //ReloadData in table, when connection established
