@@ -85,10 +85,8 @@
     {
         YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
         self.youTubePlayer.frame = YouTubeVideoFrame;
-        
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
-        
     }
 }
 
@@ -214,9 +212,8 @@
                                           @"rel": @0,
                                           @"theme": @"light",
                                           @"fs":@0,
-                                          @"autohide":@0
+                                          @"autohide":@1
                                           };
-            
              [self.youTubePlayer loadWithVideoId:self.selectedVideo.videoID playerVars:playerVars];
              [self.youTubePlayer playVideo];
              [self.PublishedAt setText:[NSString stringWithFormat:@"Опубликовано: %@",self.selectedVideo.published]];

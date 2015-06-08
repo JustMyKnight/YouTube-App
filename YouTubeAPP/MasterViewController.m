@@ -16,8 +16,8 @@
 #import "LLARingSpinnerView.h"
 #import "AppDelegate.h"
 
-@interface MasterViewController ()<UITableViewDelegate,
-UITableViewDataSource>
+
+@interface MasterViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, nonatomic) NSDictionary *videoListJSON;
 @property (strong, nonatomic) NSMutableArray *videoList;
@@ -29,21 +29,19 @@ UITableViewDataSource>
 - (void)viewDidLoad
 {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoList"];
-    
     [super viewDidLoad];
     self.videoTableView.delegate = self;
     self.videoTableView.dataSource = self;
-    
     if (data != nil) {
         NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         self.videoList = [[NSMutableArray alloc] initWithArray:array];
     } else {
         self.videoList = [[NSMutableArray alloc] init];
     }
-    
     self.navigationItem.title = @"Популярные видео";
     [self getVideoList];
 }
+
 //get list of video from youtube Popular chanel using Youtube api v3
 - (void)getVideoList
 {
@@ -55,9 +53,7 @@ UITableViewDataSource>
     [self.view addSubview:spinnerView];
     spinnerView.lineWidth = 1.0f;
     spinnerView.tintColor = [UIColor redColor];
-    if (data == nil) {
-    [spinnerView startAnimating];
-    }
+    if (data == nil)[spinnerView startAnimating];
     else [spinnerView removeFromSuperview];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
@@ -85,7 +81,6 @@ UITableViewDataSource>
              [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
              [spinnerView removeFromSuperview];
          }
-         
          self.videoList=newVideos;
          NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.videoList];
          [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"videoList"];
@@ -101,7 +96,6 @@ UITableViewDataSource>
                                                    otherButtonTitles:nil];
          [alertView show];
      }];
-    
     [operation start];    
 }
 
