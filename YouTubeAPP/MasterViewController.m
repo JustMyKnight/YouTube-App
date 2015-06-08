@@ -47,15 +47,19 @@ UITableViewDataSource>
 //get list of video from youtube Popular chanel using Youtube api v3
 - (void)getVideoList
 {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoList"];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat mpWidth = screenRect.size.width;
     CGFloat mpHeight = screenRect.size.height;
     LLARingSpinnerView *spinnerView = [[LLARingSpinnerView alloc] initWithFrame:CGRectMake(mpWidth/2-25, mpHeight/2-25, 30, 30)];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.window addSubview:spinnerView];
+    [self.view addSubview:spinnerView];
     spinnerView.lineWidth = 1.0f;
     spinnerView.tintColor = [UIColor redColor];
+    if (data == nil) {
     [spinnerView startAnimating];
+    }
+    else [spinnerView removeFromSuperview];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
     NSString *maxResults = @"30";
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, self.DEV_KEY];
@@ -78,6 +82,7 @@ UITableViewDataSource>
              youTubeVideo.published =[snippet objectForKey:@"publishedAt"];
              youTubeVideo.published=[youTubeVideo.published substringWithRange:NSMakeRange(0, [youTubeVideo.published length]-14)];             
              [newVideos addObject:youTubeVideo];
+             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
              [spinnerView removeFromSuperview];
          }
          

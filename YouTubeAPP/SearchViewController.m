@@ -85,8 +85,7 @@
     CGFloat mpWidth = screenRect.size.width;
     CGFloat mpHeight = screenRect.size.height;
     LLARingSpinnerView *spinnerView = [[LLARingSpinnerView alloc] initWithFrame:CGRectMake(mpWidth/2-25, mpHeight/2-25, 30, 30)];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.window addSubview:spinnerView];
+    [self.view addSubview:spinnerView];
     spinnerView.lineWidth = 1.0f;
     spinnerView.tintColor = [UIColor redColor];
     [spinnerView startAnimating];
