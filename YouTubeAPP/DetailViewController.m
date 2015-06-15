@@ -58,8 +58,6 @@
 {
     CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat mpWidth = screenRect.size.width;
-    CGFloat mpHeight = screenRect.size.height;
     UIDeviceOrientation orientation=[[UIDevice currentDevice] orientation];
     if(orientation==UIInterfaceOrientationPortrait)  //Portrait orientation
     {
@@ -83,7 +81,7 @@
     }
     else //full screen in landscape orientation
     {
-        YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
+        YouTubeVideoFrame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
