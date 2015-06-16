@@ -79,7 +79,7 @@
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
         [self.tabBarController.tabBar setHidden:NO];
     }
-    else //full screen in landscape orientation
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))//full screen in landscape orientation
     {
         YouTubeVideoFrame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
         self.youTubePlayer.frame = YouTubeVideoFrame;
