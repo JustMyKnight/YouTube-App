@@ -62,7 +62,7 @@
     if(orientation==UIInterfaceOrientationPortrait)  //Portrait orientation
     {
         NSArray* array =[self.navigationController viewControllers];
-        if (array[0]==0) //set position and size of the youtubeplayer in portrait orientation, when it was swiped down.
+        if ((array[0]==0) && [self mpIsMinimized]) //set position and size of the youtubeplayer in portrait orientation, when it was swiped down.
         {
             CGFloat mpWidth = 160;
             CGFloat mpHeight = 90;
@@ -203,7 +203,7 @@
              youTubeVideo.duration = [contentdetails objectForKey:@"duration"];
              [self.videoList addObject:youTubeVideo];
              NSDictionary *playerVars = @{@"playsinline" : @1,
-                                          @"modestbranding": @1,
+                                          @"modestbranding": @0,
                                           @"showinfo": @0,
                                           @"controls": @1,
                                           @"iv_load_policy": @3,
@@ -265,11 +265,9 @@
     }
     CGRect YouTubeVideoFrame;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat mpWidth = screenRect.size.width;
-    CGFloat mpHeight = screenRect.size.height;
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
     {
-        YouTubeVideoFrame = CGRectMake(0, 0, mpWidth, mpHeight);
+        YouTubeVideoFrame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
         self.youTubePlayer.frame = YouTubeVideoFrame;
         [[self navigationController] setNavigationBarHidden:YES animated:YES];
         [self.tabBarController.tabBar setHidden:YES];
